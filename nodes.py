@@ -177,8 +177,11 @@ class SpectrumNotchAutoNode:
     )
 
     def apply_notch(self, spectrum, threshold_rel, min_distance, notch_radius, protect_dc, feather):
-        B, H, W, C = spectrum.shape
         img_np = spectrum.cpu().numpy().astype(np.float32)
+        # (B,H,W) 그레이스케일 텐서도 허용 → (B,H,W,1)로 정규화
+        if img_np.ndim == 3:
+            img_np = img_np[:, :, :, np.newaxis]
+        B, H, W, C = img_np.shape
 
         out_filtered, out_mask, out_preview = [], [], []
         all_peaks = []
@@ -288,8 +291,11 @@ class SpectrumNotchManualNode:
         except Exception:
             points = []
 
-        B, H, W, C = spectrum.shape
         img_np = spectrum.cpu().numpy().astype(np.float32)
+        # (B,H,W) 그레이스케일 텐서도 허용 → (B,H,W,1)로 정규화
+        if img_np.ndim == 3:
+            img_np = img_np[:, :, :, np.newaxis]
+        B, H, W, C = img_np.shape
 
         out_filtered, out_mask = [], []
         cy, cx = H // 2, W // 2
