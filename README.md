@@ -3,6 +3,8 @@
 A ComfyUI custom node for removing periodic noise from images via frequency-domain notch filtering.
 Takes an FFT amplitude spectrum image as input, masks the noise peaks, and outputs the cleaned spectrum ready for inverse FFT.
 
+![이미지 스펙트럼 예시](https://github.com/bemoregt/ComfyUI_NotchFilter/blob/main/ScrShot%2019.png)
+
 ---
 
 ## Nodes
